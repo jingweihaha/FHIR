@@ -85,7 +85,7 @@ function searchMed() {
         var med = refs(prescription, prescription.medicationReference);
         displayMedication(med && med.code.coding || []);
       }
-      if (prescription.resource.code.text.includes(mName))
+      if (prescription.resource.code.text.toLowerCase().includes(mName.toLowerCase()))
         console.log(prescription.resource.code.text);
     });
   });
