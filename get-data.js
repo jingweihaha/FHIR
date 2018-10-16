@@ -75,7 +75,7 @@ smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
 
 function searchMed() {
 
-  var mName = document.getElementById("pName").value;
+  var mName = document.getElementById("mName").value;
 
   smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
     results.data.entry.forEach(function (prescription) {
@@ -90,27 +90,3 @@ function searchMed() {
     });
   });
 }
-
-
-// Search for all statins prescribed today
-// var statinRxs = smart.api.search({ type: 'MedicationOrder', query: { dateWritten: '2014-05-01', name: 'statin' } }).then(function (res) {
-//   console.log(" res is ", res);
-// });
-
-// smart.patient.api.search({ type: 'MedicationOrder' }).then(res => {
-//   console.log(res);
-// })
-
-
-// search on name
-// function searchPatient() {
-
-//   var pName = document.getElementById('pName').value;
-//   smart.patient.read().then(function (pt) {
-
-//     debugger;
-//     var pGroup = getPatientName();
-
-//     displayPatient(pt);
-//   });
-// }
