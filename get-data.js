@@ -87,10 +87,20 @@ smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
 });
 
 function searchMed() {
+
+
   var mName = document.getElementById("mName").value;
   var name_arr = [];
   smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
+    // var med_list = document.getElementById("med_list");
+    // med_list.innerHTML = '';
+
     var med_list = document.getElementById("med_list");
+    while (med_list.firstChild) {
+      med_list.removeChild(med_list.firstChild);
+    }
+
+
     results.data.entry.forEach(function (prescription) {
       if (prescription.medicationCodeableConcept) {
         displayMedication(prescription.medicationCodeableConcept.coding);
