@@ -61,6 +61,8 @@ var smart = FHIR.client(demo),
 
 // A more advanced query: search for active Prescriptions, including med details
 smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
+  var allMedication = document.getElementById('all');
+
   results.data.entry.forEach(function (prescription) {
     if (prescription.medicationCodeableConcept) {
       displayMedication(prescription.medicationCodeableConcept.coding);
@@ -69,7 +71,7 @@ smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
       displayMedication(med && med.code.coding || []);
     }
     console.log(prescription.resource.code.text);
-
+    allMedication.innerHTML += '<li>' + prescription.resource.code.text + '</li>';
   });
 });
 
@@ -92,7 +94,7 @@ function searchMed() {
         console.log(prescription.resource.code.text);
         med_list.innerHTML += '<li>' +
           prescription.resource.code.text +
-        '</li>'
+          '</li>'
       }
     });
   });
