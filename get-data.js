@@ -64,7 +64,7 @@ smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
   var allMedication = document.getElementById('all');
 
   var name_all = [];
-  
+
   results.data.entry.forEach(function (prescription) {
 
     if (prescription.medicationCodeableConcept) {
@@ -114,6 +114,12 @@ function searchMed() {
         console.log(prescription.resource.code.text);
 
         name_arr.push(prescription.resource.code.text);
+
+        name_arr.forEach((i) => {
+          var newDiv = document.createElement('div')
+          newDiv.innerHTML = i;
+          med_list.appendChild(newDiv);
+        })
 
         med_list.innerHTML += prescription.resource.code.text + ',';
 
