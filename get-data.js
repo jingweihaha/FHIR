@@ -59,7 +59,6 @@ var smart = FHIR.client(demo),
 //    });
 // });
 
-
 // A more advanced query: search for active Prescriptions, including med details
 smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
   results.data.entry.forEach(function (prescription) {
