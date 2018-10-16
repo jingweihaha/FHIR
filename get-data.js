@@ -71,7 +71,7 @@ smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
       displayMedication(med && med.code.coding || []);
     }
     console.log(prescription.resource.code.text);
-    allMedication.innerHTML += '<li>' + prescription.resource.code.text + '</li>';
+    allMedication.innerHTML += prescription.resource.code.text + '\n';
   });
 });
 
@@ -92,9 +92,7 @@ function searchMed() {
       }
       if (prescription.resource.code.text.toLowerCase().includes(mName.toLowerCase())) {
         console.log(prescription.resource.code.text);
-        med_list.innerHTML += '<li>' +
-          prescription.resource.code.text +
-          '</li>'
+        med_list.innerHTML += prescription.resource.code.text + '\n';
       }
     });
   });
