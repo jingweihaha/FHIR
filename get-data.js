@@ -78,6 +78,9 @@ function searchMed() {
   var mName = document.getElementById("mName").value;
 
   smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
+
+    var med_list = document.getElementById("med_list");
+
     results.data.entry.forEach(function (prescription) {
       if (prescription.medicationCodeableConcept) {
         displayMedication(prescription.medicationCodeableConcept.coding);
@@ -87,9 +90,8 @@ function searchMed() {
       }
       if (prescription.resource.code.text.toLowerCase().includes(mName.toLowerCase())) {
         console.log(prescription.resource.code.text);
-        med_list.innerHTML += "<li> " + prescription.resource.code.text + "</li>";
+        med_list.innerHTML += prescription.resource.code.text;
       }
-
     });
   });
 }
