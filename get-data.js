@@ -29,9 +29,9 @@ function getMedicationName(medCodings) {
 
 var med_list = document.getElementById('med_list');
 
-function displayMedication(medCodings) {
-  med_list.innerHTML += "<li> " + getMedicationName(medCodings) + "</li>";
-}
+// function displayMedication(medCodings) {
+//   med_list.innerHTML += "<li> " + getMedicationName(medCodings) + "</li>";
+// }
 
 // Create a FHIR client (server URL, patient id in `demo`)
 var smart = FHIR.client(demo),
@@ -71,7 +71,7 @@ smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
       displayMedication(med && med.code.coding || []);
     }
     console.log(prescription.resource.code.text);
-    allMedication.innerHTML += prescription.resource.code.text + '\n';
+    allMedication.innerHTML += prescription.resource.code.text + '<br>';
   });
 });
 
@@ -92,7 +92,7 @@ function searchMed() {
       }
       if (prescription.resource.code.text.toLowerCase().includes(mName.toLowerCase())) {
         console.log(prescription.resource.code.text);
-        med_list.innerHTML += prescription.resource.code.text + '\n';
+        med_list.innerHTML += prescription.resource.code.text + '<br>';
       }
     });
   });
