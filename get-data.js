@@ -63,14 +63,26 @@ var smart = FHIR.client(demo),
 smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
   var allMedication = document.getElementById('all');
 
+  var name_all = [];
+  
   results.data.entry.forEach(function (prescription) {
+
     if (prescription.medicationCodeableConcept) {
+
       displayMedication(prescription.medicationCodeableConcept.coding);
+
     } else if (prescription.medicationReference) {
+
       var med = refs(prescription, prescription.medicationReference);
+
       displayMedication(med && med.code.coding || []);
+
     }
+
     console.log(prescription.resource.code.text);
+
+    name_all.push(prescription.resource.code.text);
+
     allMedication.innerHTML += prescription.resource.code.text + ','
   });
 });
@@ -93,14 +105,14 @@ function searchMed() {
       } else if (prescription.medicationReference) {
 
         var med = refs(prescription, prescription.medicationReference);
-        
+
         displayMedication(med && med.code.coding || []);
       }
 
       if (prescription.resource.code.text.toLowerCase().includes(mName.toLowerCase())) {
-        
+
         console.log(prescription.resource.code.text);
-        
+
         name_arr.push(prescription.resource.code.text);
 
         med_list.innerHTML += prescription.resource.code.text + ',';
