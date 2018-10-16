@@ -73,6 +73,22 @@ smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
   });
 });
 
+function searchMed() {
+  smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
+    results.data.entry.forEach(function (prescription) {
+      if (prescription.medicationCodeableConcept) {
+        displayMedication(prescription.medicationCodeableConcept.coding);
+      } else if (prescription.medicationReference) {
+        var med = refs(prescription, prescription.medicationReference);
+        displayMedication(med && med.code.coding || []);
+      }
+      console.log(prescription.resource.code.text);
+
+    });
+  });
+}
+
+
 // Search for all statins prescribed today
 // var statinRxs = smart.api.search({ type: 'MedicationOrder', query: { dateWritten: '2014-05-01', name: 'statin' } }).then(function (res) {
 //   console.log(" res is ", res);
