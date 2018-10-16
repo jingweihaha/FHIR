@@ -62,68 +62,54 @@ var smart = FHIR.client(demo),
 // A more advanced query: search for active Prescriptions, including med details
 smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
   var allMedication = document.getElementById('all');
-
   var name_all = [];
-
   results.data.entry.forEach(function (prescription) {
-
     if (prescription.medicationCodeableConcept) {
-
-      displayMedication(prescription.medicationCodeableConcept.coding);
-
+      //displayMedication(prescription.medicationCodeableConcept.coding);
     } else if (prescription.medicationReference) {
-
-      var med = refs(prescription, prescription.medicationReference);
-
-      displayMedication(med && med.code.coding || []);
-
+      //var med = refs(prescription, prescription.medicationReference);
+      //displayMedication(med && med.code.coding || []);
     }
 
     console.log(prescription.resource.code.text);
-
     name_all.push(prescription.resource.code.text);
 
-    allMedication.innerHTML += prescription.resource.code.text + ','
+
+
+    //allMedication.innerHTML += prescription.resource.code.text + ','
   });
+
+  name_all.forEach((i) => {
+    var newDiv = document.createElement('div')
+    newDiv.innerHTML = i;
+    allMedication.appendChild(newDiv);
+  })
 });
 
 function searchMed() {
-
   var mName = document.getElementById("mName").value;
-
   var name_arr = [];
-
   smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
-
     var med_list = document.getElementById("med_list");
-
     results.data.entry.forEach(function (prescription) {
       if (prescription.medicationCodeableConcept) {
-
         displayMedication(prescription.medicationCodeableConcept.coding);
-
       } else if (prescription.medicationReference) {
-
         var med = refs(prescription, prescription.medicationReference);
-
         displayMedication(med && med.code.coding || []);
       }
 
       if (prescription.resource.code.text.toLowerCase().includes(mName.toLowerCase())) {
-
         console.log(prescription.resource.code.text);
-
         name_arr.push(prescription.resource.code.text);
-
-        name_arr.forEach((i) => {
-          var newDiv = document.createElement('div')
-          newDiv.innerHTML = i;
-          med_list.appendChild(newDiv);
-        })
-
-        med_list.innerHTML += prescription.resource.code.text + ',';
-
       }
     });
+
+    name_arr.forEach((i) => {
+      var newDiv = document.createElement('div')
+      newDiv.innerHTML = i;
+      med_list.appendChild(newDiv);
+    })
+
   });
 }
