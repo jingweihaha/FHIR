@@ -14,6 +14,10 @@ function getMedicationName(medCodings) {
     return c.system == "http://www.nlm.nih.gov/research/umls/rxnorm";
   });
 
+  debugger;
+
+  console.log(coding);
+
   return coding && coding.display || "Unnamed Medication(TM)"
 }
 
@@ -81,14 +85,14 @@ smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
 
 
 // search on name
-function searchPatient() {
+// function searchPatient() {
 
-  var pName = document.getElementById('pName').value;
-  smart.patient.read().then(function (pt) {
+//   var pName = document.getElementById('pName').value;
+//   smart.patient.read().then(function (pt) {
 
-    debugger;
-    var pGroup = getPatientName();
+//     debugger;
+//     var pGroup = getPatientName();
 
-    displayPatient(pt);
-  });
-}
+//     displayPatient(pt);
+//   });
+// }
