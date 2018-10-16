@@ -74,6 +74,9 @@ smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
 });
 
 function searchMed() {
+
+  var mName = document.getElementById("pName").value;
+
   smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
     results.data.entry.forEach(function (prescription) {
       if (prescription.medicationCodeableConcept) {
@@ -82,7 +85,9 @@ function searchMed() {
         var med = refs(prescription, prescription.medicationReference);
         displayMedication(med && med.code.coding || []);
       }
-      console.log(prescription.resource.code.text);
+
+      if (prescription.resource.code.text.contains(mName))
+        console.log(prescription.resource.code.text);
 
     });
   });
