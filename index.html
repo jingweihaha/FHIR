@@ -4,12 +4,31 @@
 <head>
 	<script data-require="jquery@*" data-semver="2.0.3" src="https://code.jquery.com/jquery-2.0.3.min.js">
 	</script>
+
+	<script>
+		FHIR.oauth2.ready(function (smart) {
+			smart.patient.read().then(function (pt) {
+				console.log(pt);
+			});
+			smart.patient.api.fetchAllWithReferences({ type: "MedicationOrder" }, ["MedicationOrder.medicationReference"]).then(function (results, refs) {
+				results.forEach(function (prescription) {
+					if (prescription.medicationCodeableConcept) {
+						console.log(prescription.medicationCodeableConcept.coding);
+					} else if (prescription.medicationReference) {
+						var med = refs(prescription, prescription.medicationReference);
+						console.log(med && med.code.coding || []);
+					}
+				});
+			});
+		});
+	</script>
+
 	<script src="demo-settings.js">
 	</script>
 </head>
 
 <body>
-	Show Medication from All:
+	Show Condition from All:
 
 	<div id="all"></div>
 	<p>================</p>
