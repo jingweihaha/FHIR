@@ -5,21 +5,24 @@
 	<script data-require="jquery@*" data-semver="2.0.3" src="https://code.jquery.com/jquery-2.0.3.min.js">
 	</script>
 
+	<script src="https://rawgithub.com/smart-on-fhir/client-js/master/dist/fhir-client.js"></script>
+
 	<script>
 		FHIR.oauth2.ready(function (smart) {
 			smart.patient.read().then(function (pt) {
+				debugger;
 				console.log(pt);
 			});
-			smart.patient.api.fetchAllWithReferences({ type: "MedicationOrder" }, ["MedicationOrder.medicationReference"]).then(function (results, refs) {
-				results.forEach(function (prescription) {
-					if (prescription.medicationCodeableConcept) {
-						console.log(prescription.medicationCodeableConcept.coding);
-					} else if (prescription.medicationReference) {
-						var med = refs(prescription, prescription.medicationReference);
-						console.log(med && med.code.coding || []);
-					}
-				});
-			});
+			// smart.patient.api.fetchAllWithReferences({ type: "MedicationOrder" }, ["MedicationOrder.medicationReference"]).then(function (results, refs) {
+			// 	results.forEach(function (prescription) {
+			// 		if (prescription.medicationCodeableConcept) {
+			// 			console.log(prescription.medicationCodeableConcept.coding);
+			// 		} else if (prescription.medicationReference) {
+			// 			var med = refs(prescription, prescription.medicationReference);
+			// 			console.log(med && med.code.coding || []);
+			// 		}
+			// 	});
+			// });
 		});
 	</script>
 
@@ -33,10 +36,10 @@
 	<div id="all"></div>
 	<p>================</p>
 	Search from above:
-	<input type="text" id="mName"><button type="button" id="btn1" onclick="searchMed()">Search</button> <br>
+	<!-- <input type="text" id="mName"><button type="button" id="btn1" onclick="searchMed()">Search</button> <br> -->
 
-	<script src="https://cdn.rawgit.com/smart-on-fhir/client-js/v0.1.8/dist/fhir-client.js"></script>
-	<script src="get-data.js"></script>
+	<!-- <script src="https://cdn.rawgit.com/smart-on-fhir/client-js/v0.1.8/dist/fhir-client.js"></script> -->
+	<!-- <script src="get-data.js"></script> -->
 	res:
 	<p id="med_list"></p>
 
