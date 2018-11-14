@@ -88,6 +88,8 @@ smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
 
 function searchMed() {
 
+  console.log("this is searchMed function");
+
   var mName = document.getElementById("mName").value;
   var name_arr = [];
   smart.patient.api.search({ type: "Condition" }).then(function (results, refs) {
